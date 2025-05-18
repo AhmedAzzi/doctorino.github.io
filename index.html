@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctorino - Healthcare Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Enhanced Primary Colors - More vibrant while maintaining brand identity */
+            --primary-50: #eef6ff;
+            --primary-100: #d8e9ff;
+            --primary-200: #b6d5ff;
+            --primary-300: #8abbff;
+            --primary-400: #5a9eff;
+            --primary-500: #3a7fff;
+            /* Main brand color - more vibrant */
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+
+            /* Accent Colors for visual interest */
+            --accent-cyan: #06b6d4;
+            --accent-cyan-light: #67e8f9;
+            --accent-purple: #8b5cf6;
+            --accent-purple-light: #c4b5fd;
+            --accent-pink: #ec4899;
+            --accent-pink-light: #f9a8d4;
+
+            /* Gray Colors - Slightly warmer */
+            --gray-50: #fafafa;
+            --gray-100: #f4f4f5;
+            --gray-200: #e4e4e7;
+            --gray-300: #d4d4d8;
+            --gray-400: #a1a1aa;
+            --gray-500: #71717a;
+            --gray-600: #52525b;
+            --gray-700: #3f3f46;
+            --gray-800: #27272a;
+            --gray-900: #18181b;
+
+            /* Functional Colors - More vibrant */
+            --success: #10b981;
+            --success-light: #a7f3d0;
+            --warning: #f59e0b;
+            --warning-light: #fde68a;
+            --danger: #ef4444;
+            --danger-light: #fca5a5;
+            --info: #3b82f6;
+            --info-light: #93c5fd;
+
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-full: 9999px;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background-color: var(--gray-50);
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Enhanced Typography */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+            /* Tighter letter spacing for headings */
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-600) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            border-radius: var(--radius-full);
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            color: var(--primary-700);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            font-size: 1.05rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-600) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .highlight {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .highlight::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background-color: var(--accent-cyan-light);
+            opacity: 0.3;
+            z-index: -1;
+            transform: skewX(-12deg);
+        }
+
+        /* Enhanced Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 2rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.02em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            z-index: 1;
+        }
+
+        .btn i {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(3px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-700) 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-600);
+            border: 2px solid transparent;
+            background-image: linear-gradient(white, white),
+                linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1);
+            color: var(--primary-700);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-600);
+            border: 2px solid var(--primary-500);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-50);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* Enhanced Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            padding: var(--spacing-md) 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 0.75rem 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 45px;
+            margin-right: var(--spacing-sm);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            font-size: 1.75rem;
+            background: linear-gradient(90deg, var(--primary-600) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo h1 {
+            font-size: 1.6rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-xl);
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            transition: width 0.3s ease;
+            border-radius: var(--radius-full);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-600);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-600);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--accent-purple);
+            transform: rotate(90deg);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: var(--spacing-3xl);
+            background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-900) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(58, 127, 255, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 30%);
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3xl);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-lg);
+            color: white;
+            -webkit-text-fill-color: white;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-text h1::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -30px;
+            width: 60px;
+            height: 60px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2367e8f9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.7;
+            transform: rotate(-15deg);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: rotate(-15deg) translate(0, 0);
+            }
+
+            50% {
+                transform: rotate(-15deg) translate(0, -10px);
+            }
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xl);
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            max-width: 90%;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .device-mockup {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .desktop-mockup {
+            width: 85%;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .desktop-mockup:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .mobile-mockup {
+            position: absolute;
+            width: 30%;
+            right: -5%;
+            bottom: -40px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 2;
+        }
+
+        .mobile-mockup:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 2;
+        }
+
+        /* Enhanced Sections */
+        section {
+            padding: var(--spacing-3xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-100) 0%, var(--accent-cyan-light) 100%);
+            opacity: 0.2;
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        .features::before {
+            top: -100px;
+            left: -150px;
+        }
+
+        .app-showcase::before {
+            bottom: -100px;
+            right: -150px;
+            background: linear-gradient(135deg, var(--accent-purple-light) 0%, var(--primary-100) 100%);
+        }
+
+        .about::before {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary-100) 0%, transparent 70%);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-3xl);
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            border-radius: var(--radius-full);
+        }
+
+        .section-header h2 {
+            color: var(--primary-700);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header span {
+            color: var(--accent-purple);
+            position: relative;
+        }
+
+        .section-header span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background-color: var(--accent-purple-light);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Enhanced Features Section */
+        .features {
+            background-color: var(--gray-50);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23bbbbbb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Services Section */
+        .services {
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--primary-50) 100%);
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--accent-purple-light) 0%, var(--primary-100) 100%);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(80px);
+            z-index: 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-2xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+            text-align: center;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-200);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+            margin: 0 auto var(--spacing-lg);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--primary-600);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+        }
+
+        .service-card:hover .service-icon i {
+            color: white;
+        }
+
+        .service-card h3 {
+            color: var(--primary-700);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .service-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .service-card:hover h3::after {
+            width: 80%;
+        }
+
+        .service-card p {
+            color: var(--gray-600);
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background-color: var(--gray-50);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq::before {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary-100) 0%, var(--accent-cyan-light) 100%);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(80px);
+            z-index: 0;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-200);
+        }
+
+        .faq-question {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-question::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary-100) 0%, transparent 100%);
+            opacity: 0.5;
+        }
+
+        .faq-question h3 {
+            margin-bottom: 0;
+            font-size: 1.2rem;
+            color: var(--primary-700);
+            padding-right: var(--spacing-lg);
+            transition: color 0.3s ease;
+        }
+
+        .faq-item:hover .faq-question h3 {
+            color: var(--primary-600);
+        }
+
+        .faq-icon {
+            color: var(--primary-500);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 var(--spacing-xl);
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 0;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-2xl);
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-200);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon i {
+            font-size: 1.75rem;
+            color: var(--primary-600);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+        }
+
+        .feature-card:hover .feature-icon i {
+            color: white;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-700);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .feature-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .feature-card:hover h3::after {
+            width: 100%;
+        }
+
+        .feature-card p {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+
+        .feature-card a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-600);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card a i {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card a:hover {
+            color: var(--accent-purple);
+        }
+
+        .feature-card a:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Enhanced App Showcase Section */
+        .app-showcase {
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--primary-50) 100%);
+            position: relative;
+        }
+
+        .app-showcase::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233a7fff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            z-index: 0;
+        }
+
+        .apps-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-card {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3xl);
+            background-color: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        .app-card.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .app-image {
+            flex: 1;
+            padding: var(--spacing-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(58, 127, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .app-image img {
+            border-radius: var(--radius-lg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            transform: perspective(1000px) rotateY(-5deg);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .app-card:hover .app-image img {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .app-image.mobile {
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-image.mobile img {
+            max-height: 500px;
+            transform: perspective(1000px) rotateY(5deg);
+        }
+
+        .app-card.reverse:hover .app-image img {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .app-info {
+            flex: 1;
+            padding: var(--spacing-2xl);
+        }
+
+        .app-info h3 {
+            color: var(--primary-700);
+            margin-bottom: var(--spacing-lg);
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .app-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .app-card:hover .app-info h3::after {
+            width: 100%;
+        }
+
+        .app-info p {
+            margin-bottom: var(--spacing-xl);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray-600);
+        }
+
+        .app-features {
+            margin-bottom: var(--spacing-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .app-features li {
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s ease;
+        }
+
+        .app-features li:hover {
+            transform: translateX(5px);
+        }
+
+        .app-features i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%);
+            color: white;
+            border-radius: var(--radius-full);
+            margin-right: var(--spacing-md);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .app-store-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .store-button {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-900) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .store-button i {
+            font-size: 1.5rem;
+        }
+
+        .store-button span {
+            font-weight: 600;
+        }
+
+        .store-button:hover {
+            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced About Section */
+        .about {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-100) 0%, var(--accent-cyan-light) 100%);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(50px);
+            z-index: -1;
+        }
+
+        .about::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-purple-light) 0%, var(--primary-100) 100%);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(50px);
+            z-index: -1;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            padding: var(--spacing-2xl);
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .about-content::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 6rem;
+            font-family: Georgia, serif;
+            color: var(--primary-100);
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .about-content::after {
+            content: '"';
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            font-size: 6rem;
+            font-family: Georgia, serif;
+            color: var(--primary-100);
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            color: var(--gray-700);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-text .highlight {
+            color: var(--primary-700);
+            font-weight: 600;
+        }
+
+        /* Enhanced Download Section */
+        .download {
+            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(58, 127, 255, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 30%);
+            z-index: 1;
+        }
+
+        .download::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .download .section-header {
+            position: relative;
+            z-index: 2;
+        }
+
+        .download .section-header h2 {
+            color: white;
+        }
+
+        .download .section-header h2::after {
+            background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+        }
+
+        .download .section-header p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .download-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-2xl);
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .download-card:hover::before {
+            opacity: 1;
+        }
+
+        .download-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto var(--spacing-lg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .download-card:hover .download-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .download-card h3 {
+            color: var(--primary-700);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.5rem;
+        }
+
+        .download-card p {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.7;
+        }
+
+        .download-card .btn {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .download-card .btn-primary {
+            background: linear-gradient(90deg, var(--primary-600) 0%, var(--accent-purple) 100%);
+        }
+
+        /* Enhanced Contact Section */
+        .contact {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233a7fff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-2xl);
+            position: relative;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-2xl);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            background-color: white;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-100);
+            min-width: 250px;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-200);
+        }
+
+        .contact-item i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+            color: var(--primary-600);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover i {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+            color: white;
+            transform: rotate(5deg);
+        }
+
+        .contact-item p {
+            margin-bottom: 0;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+            color: white;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) rotate(5deg);
+            background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-purple) 100%);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-900) 100%);
+            color: white;
+            padding-top: var(--spacing-3xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-3xl);
+            margin-bottom: var(--spacing-3xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-logo h2 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.75rem;
+            background: linear-gradient(90deg, var(--primary-300) 0%, var(--accent-cyan-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-logo p {
+            color: var(--gray-400);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-logo .social-links {
+            margin-top: 0;
+        }
+
+        .footer-logo .social-link {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo .social-link:hover {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-purple) 100%);
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-3xl);
+        }
+
+        .footer-links-column {
+            min-width: 160px;
+        }
+
+        .footer-links-column h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-links-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-500) 0%, var(--accent-cyan) 100%);
+            border-radius: var(--radius-full);
+        }
+
+        .footer-links-column ul li {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links-column a {
+            color: var(--gray-400);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links-column a::before {
+            content: '→';
+            margin-right: var(--spacing-sm);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links-column a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links-column a:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom p {
+            color: var(--gray-400);
+            margin-bottom: 0;
+        }
+
+        .footer-bottom a {
+            color: var(--primary-300);
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Enhanced Media Queries */
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .app-info h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                gap: var(--spacing-2xl);
+            }
+
+            .hero-text {
+                text-align: center;
+                padding: 0 var(--spacing-lg);
+            }
+
+            .hero-text h1::before {
+                left: 50%;
+                transform: translateX(-50%) rotate(-15deg);
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .app-card,
+            .app-card.reverse {
+                flex-direction: column;
+                padding: var(--spacing-xl);
+            }
+
+            .app-info {
+                text-align: center;
+                padding: var(--spacing-xl) var(--spacing-lg);
+            }
+
+            .app-info h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .app-features {
+                grid-template-columns: 1fr;
+            }
+
+            .app-features li {
+                justify-content: center;
+            }
+
+            .app-features li:hover {
+                transform: none;
+            }
+
+            .app-store-buttons {
+                justify-content: center;
+            }
+
+            .feature-card h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .feature-card {
+                text-align: center;
+            }
+
+            .feature-icon {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .feature-card a {
+                justify-content: center;
+            }
+
+            .download-options {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                max-width: 500px;
+            }
+
+            .contact-item {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .section-header p {
+                font-size: 1.1rem;
+                max-width: 100%;
+            }
+
+            .app-info h3 {
+                font-size: 1.6rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: var(--spacing-xl);
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .btn-large {
+                padding: 0.85rem 1.75rem;
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .feature-card {
+                padding: var(--spacing-xl);
+            }
+
+            .app-card {
+                padding: var(--spacing-lg);
+            }
+
+            .app-image {
+                padding: var(--spacing-md);
+            }
+
+            .desktop-mockup,
+            .mobile-mockup {
+                transform: none !important;
+            }
+
+            .mobile-mockup {
+                position: relative;
+                width: 50%;
+                right: auto;
+                bottom: auto;
+                margin: 0 auto;
+            }
+
+            .about-content {
+                padding: var(--spacing-xl);
+            }
+
+            .about-content::before,
+            .about-content::after {
+                font-size: 4rem;
+            }
+
+            .about-text p {
+                font-size: 1.1rem;
+            }
+
+            .download-card {
+                padding: var(--spacing-xl);
+            }
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                padding: var(--spacing-lg);
+            }
+
+            .contact-item i {
+                margin-bottom: var(--spacing-md);
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text h1::before {
+                width: 40px;
+                height: 40px;
+                top: -15px;
+                left: 50%;
+                transform: translateX(-50%) rotate(-15deg);
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+            }
+
+            .app-info h3 {
+                font-size: 1.5rem;
+            }
+
+            .app-info p {
+                font-size: 1rem;
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .download-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.75rem;
+            }
+
+            .footer-links {
+                gap: var(--spacing-xl);
+            }
+
+            .footer-links-column {
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        .feature-card,
+        .app-card,
+        .download-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .feature-card.revealed,
+        .app-card.revealed,
+        .download-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo.svg" alt="Doctorino Logo">
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#apps">Apps</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Healthcare Management Made Simple</h1>
+                    <p>Doctorino connects patients with healthcare providers through an intuitive platform that
+                        streamlines appointments, medical records, and AI-powered diagnostics.</p>
+                    <div class="hero-buttons">
+                        <a href="#download" class="btn btn-primary btn-large">Get Started <i
+                                class="fas fa-arrow-right"></i></a>
+                        <a href="#features" class="btn btn-secondary">Learn More <i class="fas fa-info-circle"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="device-mockup">
+                        <img src="https://placehold.co/600x400/4b67af/FFFFFF/png?text=Doctorino+Dashboard"
+                            alt="Doctorino Dashboard" class="desktop-mockup">
+                        <img src="https://placehold.co/300x600/4b67af/FFFFFF/png?text=Doctorino+Mobile"
+                            alt="Doctorino Mobile App" class="mobile-mockup">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1"
+                    d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Features</h2>
+                <p>Discover how Doctorino can transform your healthcare experience</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Appointment Management</h3>
+                    <p>Schedule, reschedule, or cancel appointments with ease. Get reminders and manage your healthcare
+                        calendar in one place.</p>
+                    <a href="#">Learn more <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Doctor Search</h3>
+                    <p>Find the right healthcare provider based on specialty, location, and availability. View profiles
+                        and patient reviews.</p>
+                    <a href="#">Learn more <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <h3>Medical Records</h3>
+                    <p>Access your complete medical history, test results, and prescriptions anytime, anywhere. Share
+                        information securely with your providers.</p>
+                    <a href="#">Learn more <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Diagnostics</h3>
+                    <p>Benefit from cutting-edge AI analysis for ECG, mammography, and other medical imaging to support
+                        clinical decisions.</p>
+                    <a href="#">Learn more <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span>Services</span></h2>
+                <p>Comprehensive healthcare solutions for patients and providers</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Telemedicine Consultations</h3>
+                    <p>Connect with healthcare providers remotely through secure video consultations. Get medical
+                        advice, prescriptions, and follow-ups from the comfort of your home.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Remote Patient Monitoring</h3>
+                    <p>Track vital signs and health metrics with connected devices. Our platform automatically alerts
+                        healthcare providers about concerning changes in your condition.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h3>Medication Management</h3>
+                    <p>Receive reminders for medication schedules, track your prescriptions, and get automatic refill
+                        notifications to ensure you never miss a dose.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Healthcare Analytics</h3>
+                    <p>Gain insights into health trends with comprehensive analytics. Our platform helps providers make
+                        data-driven decisions for better patient outcomes.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hospital-user"></i>
+                    </div>
+                    <h3>Patient Engagement</h3>
+                    <p>Stay connected with your healthcare journey through personalized education materials, progress
+                        tracking, and direct communication with your care team.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Health Data</h3>
+                    <p>Your health information is protected with enterprise-grade security and encryption. Control who
+                        can access your data with granular permission settings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Showcase Section -->
+    <section id="apps" class="app-showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Applications</h2>
+                <p>Tailored solutions for patients and healthcare providers</p>
+            </div>
+            <div class="apps-container">
+                <div class="app-card">
+                    <div class="app-image">
+                        <img src="https://placehold.co/600x400/4b67af/FFFFFF/png?text=Doctor+Dashboard"
+                            alt="Doctorino Doctor Dashboard">
+                    </div>
+                    <div class="app-info">
+                        <h3>Doctorino for Healthcare Providers</h3>
+                        <p>A comprehensive desktop application that helps doctors manage patient appointments, medical
+                            records, and leverage AI-powered diagnostic tools.</p>
+                        <ul class="app-features">
+                            <li><i class="fas fa-check-circle"></i> Patient management dashboard</li>
+                            <li><i class="fas fa-check-circle"></i> Appointment scheduling system</li>
+                            <li><i class="fas fa-check-circle"></i> AI-powered ECG and mammography analysis</li>
+                            <li><i class="fas fa-check-circle"></i> Medical records management</li>
+                        </ul>
+                        <a href="#download" class="btn btn-primary">Download Desktop App</a>
+                    </div>
+                </div>
+                <div class="app-card reverse">
+                    <div class="app-image mobile">
+                        <img src="https://placehold.co/300x600/4b67af/FFFFFF/png?text=Patient+App"
+                            alt="Doctorino Patient Mobile App">
+                    </div>
+                    <div class="app-info">
+                        <h3>Doctorino for Patients</h3>
+                        <p>A user-friendly mobile application that empowers patients to take control of their healthcare
+                            journey.</p>
+                        <ul class="app-features">
+                            <li><i class="fas fa-check-circle"></i> Find and book appointments</li>
+                            <li><i class="fas fa-check-circle"></i> Access medical reports and history</li>
+                            <li><i class="fas fa-check-circle"></i> Receive appointment reminders</li>
+                            <li><i class="fas fa-check-circle"></i> Secure messaging with healthcare providers</li>
+                        </ul>
+                        <div class="app-store-buttons">
+                            <a href="#" class="store-button">
+                                <i class="fab fa-google-play"></i>
+                                <span>Google Play</span>
+                            </a>
+                            <a href="#" class="store-button">
+                                <i class="fab fa-apple"></i>
+                                <span>App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked <span>Questions</span></h2>
+                <p>Find answers to common questions about our platform</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How secure is my medical data on Doctorino?</h3>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Doctorino employs enterprise-grade security measures including end-to-end encryption, secure
+                            data centers, and strict access controls. We are fully HIPAA compliant and regularly undergo
+                            security audits to ensure your medical information remains private and protected.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I use Doctorino with my existing healthcare provider?</h3>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Doctorino is designed to work with your existing healthcare providers. You can invite
+                            your doctors to join the platform, or if they're already using Doctorino, you can connect
+                            with them directly. Our system also allows for secure sharing of medical records with
+                            providers who don't use our platform.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do telemedicine consultations work?</h3>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Telemedicine consultations on Doctorino are simple and convenient. You can schedule an
+                            appointment through the app, receive a reminder before your consultation, and join a secure
+                            video call with your healthcare provider at the scheduled time. After the consultation, any
+                            prescriptions or follow-up instructions will be available in your account.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is Doctorino available on all devices?</h3>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Doctorino is available on multiple platforms. Healthcare providers typically use our desktop
+                            application, while patients can access their information through our mobile apps available
+                            for both iOS and Android devices. We also offer a web version that works on any modern
+                            browser.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does the AI-powered diagnostic system work?</h3>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our AI diagnostic tools analyze medical images and data using advanced machine learning
+                            algorithms trained on millions of validated cases. The system can identify patterns and
+                            anomalies in ECGs, mammograms, and other medical imaging to assist healthcare providers in
+                            making more accurate diagnoses. It's important to note that our AI tools are designed to
+                            support, not replace, the expertise of medical professionals.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What does Doctorino cost?</h3>
+                        <div class="faq-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Doctorino offers several pricing tiers to meet different needs. For patients, we have a free
+                            basic plan that includes appointment scheduling and medical record storage. Premium patient
+                            plans include additional features like telemedicine consultations and medication management.
+                            For healthcare providers, we offer subscription plans based on practice size and required
+                            features. Contact our sales team for detailed pricing information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Doctorino</h2>
+                <p>Transforming healthcare through technology</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Doctorino was created with a simple mission: to make healthcare more accessible, efficient, and
+                        effective for everyone. Our platform connects patients with healthcare providers through
+                        intuitive applications that streamline the entire healthcare experience.</p>
+                    <p>By combining user-friendly interfaces with powerful AI-driven diagnostic tools, we're helping
+                        healthcare professionals deliver better care while empowering patients to take control of their
+                        health journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get Doctorino Today</h2>
+                <p>Start your journey to better healthcare management</p>
+            </div>
+            <div class="download-options">
+                <div class="download-card">
+                    <div class="download-icon">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <h3>For Healthcare Providers</h3>
+                    <p>Download our desktop application to streamline your practice and enhance patient care.</p>
+                    <a href="#" class="btn btn-primary">Download for Windows</a>
+                    <a href="#" class="btn btn-outline">Download for Mac</a>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>For Patients</h3>
+                    <p>Get our mobile app to manage appointments and access your medical information on the go.</p>
+                    <div class="app-store-buttons">
+                        <a href="#" class="store-button">
+                            <i class="fab fa-google-play"></i>
+                            <span>Google Play</span>
+                        </a>
+                        <a href="#" class="store-button">
+                            <i class="fab fa-apple"></i>
+                            <span>App Store</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have questions? We're here to help</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>support@doctorino.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>123 Healthcare Ave, Medical District, CA 90210</p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Doctorino Logo">
+                    <p>Healthcare Management System</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#apps">Applications</a></li>
+                            <li><a href="#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">HIPAA Compliance</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Doctorino. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    navLinks.classList.toggle('active');
+
+                    // Toggle icon between bars and X
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon.classList.contains('fa-bars')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking a link
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Header scroll effect
+            const header = document.querySelector('.header');
+            let lastScrollTop = 0;
+
+            window.addEventListener('scroll', function () {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (scrollTop > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                lastScrollTop = scrollTop;
+            });
+
+            // Reveal animations on scroll
+            const revealElements = document.querySelectorAll('.feature-card, .app-card, .download-card, .service-card');
+
+            function checkReveal() {
+                const windowHeight = window.innerHeight;
+                const revealPoint = 150;
+
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+
+                    if (elementTop < windowHeight - revealPoint) {
+                        element.classList.add('revealed');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', checkReveal);
+            checkReveal(); // Check on initial load
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Make the first FAQ item active by default
+            if (faqItems.length > 0) {
+                faqItems[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
